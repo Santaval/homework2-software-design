@@ -1,43 +1,55 @@
-from vehiculo import Vehiculo, imprimir_datos_vehiculo
+from flota import Flota
+from vehiculo import imprimir_datos_vehiculo
 
-class Flota:
-    def __init__(self):
-        self.vehiculos = []
-
-    def leer_datos_vehiculo(self):
+def leer_datos_vehiculo():
+    tipos_validos = ['auto', 'moto', 'camión']
+    while True:
         tipo = input("Tipo (auto/moto/camión): ").lower()
-        color = input("Color: ")
-        peso = float(input("Peso (kg): "))
-        if tipo == 'moto':
-            ruedas = 2
-            capacidad = 2
+        if tipo in tipos_validos:
+            break
+        print("Tipo inválido. Debe ser 'auto', 'moto' o 'camión'.")
+    while True:
+        color = input("Color: ").strip()
+        if color:
+            break
+        print("El color no puede estar vacío.")
+    while True:
+        try:
+            peso = float(input("Peso (kg): "))
+            if peso > 0:
+                break
+            else:
+                print("El peso debe ser un número positivo.")
+        except ValueError:
+            print("Por favor, ingrese un número válido para el peso.")
+    if tipo == 'moto':
+        ruedas = 2
+        capacidad = 2
+    else:
+        ruedas = 4
+        capacidad = 5 if tipo == 'auto' else 2
+    while True:
+        electrico_input = input("Es eléctrico? (s/n): ").lower()
+        if electrico_input in ['s', 'n']:
+            electrico = electrico_input == 's'
+            break
+        print("Respuesta inválida. Escriba 's' para sí o 'n' para no.")
+    return tipo, color, peso, ruedas, electrico, capacidad
+
+if __name__ == "__main__":
+    flota = Flota()
+    while True:
+        print("\n1. Agregar vehículo")
+        print("2. Mostrar reporte")
+        print("3. Salir")
+        opcion = input("Elige una opción: ")
+        if opcion == '1':
+            datos = leer_datos_vehiculo()
+            flota.agregar_vehiculo(*datos)
+        elif opcion == '2':
+            flota.generar_reporte()
+        elif opcion == '3':
+            print("¡Hasta luego!")
+            break
         else:
-            ruedas = 4
-            capacidad = 5 if tipo == 'auto' else 2
-        electrico = input("Es eléctrico? (s/n): ").lower() == 's'
-        return tipo, color, peso, ruedas, electrico, capacidad
-
-    def agregar_vehiculo(self):
-        tipo, color, peso, ruedas, electrico, capacidad = self.leer_datos_vehiculo()
-        v = Vehiculo(tipo, color, peso, ruedas, electrico, capacidad)
-        self.vehiculos.append(v)
-        print("Vehículo agregado!")
-
-    def generar_reporte(self):
-        total = 0
-        electricos = 0
-        requiere_inspeccion = 0
-
-        for v in self.vehiculos:
-            imprimir_datos_vehiculo(v)
-            total += v.calcular_costo()
-            if v.es_electrico:
-                electricos += 1
-            if v.necesita_inspeccion():
-                requiere_inspeccion += 1
-
-        print(f"\nRESUMEN FLOTA:")
-        print(f"Total vehículos: {len(self.vehiculos)}")
-        print(f"Vehículos eléctricos: {electricos}")
-        print(f"Requieren inspección: {requiere_inspeccion}")
-        print(f"Valor total: ${total}")
+            print("Opción no válida.")
