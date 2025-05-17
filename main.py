@@ -54,20 +54,21 @@ class Flota:
     def __init__(self):
         self.vehiculos = []
 
-    def agregar_vehiculo(self):
+    def leer_datos_vehiculo(self):
         tipo = input("Tipo (auto/moto/camión): ").lower()
         color = input("Color: ")
         peso = float(input("Peso (kg): "))
-
         if tipo == 'moto':
             ruedas = 2
             capacidad = 2
         else:
             ruedas = 4
             capacidad = 5 if tipo == 'auto' else 2
-
         electrico = input("Es eléctrico? (s/n): ").lower() == 's'
+        return tipo, color, peso, ruedas, electrico, capacidad
 
+    def agregar_vehiculo(self):
+        tipo, color, peso, ruedas, electrico, capacidad = self.leer_datos_vehiculo()
         v = Vehiculo(tipo, color, peso, ruedas, electrico, capacidad)
         self.vehiculos.append(v)
         print("Vehículo agregado!")
