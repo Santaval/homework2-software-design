@@ -1,3 +1,19 @@
+PRECIOS_BASE = {
+    'auto': 15000,
+    'moto': 8000,
+    'camion': 45000
+}
+MULTIPLICADORES_PESO = {
+    'auto': 100,
+    'moto': 50,
+    'camion': 200
+}
+EXTRA_ELECTRICO = {
+    'auto': 5000,
+    'moto': 3000,
+    'camion': 0
+}
+
 class Vehiculo:
     def __init__(self, tipo, color, peso, ruedas=4, es_electrico=False, capacidad_pasajeros=5):
         self.tipo = tipo  # 'auto', 'moto', 'camion'
@@ -9,22 +25,10 @@ class Vehiculo:
         self.estado = "nuevo"
 
     def calcular_costo(self):
-        if self.tipo == 'auto':
-            base = 15000
-            extra = self.peso * 100
-            if self.es_electrico:
-                extra += 5000
-        elif self.tipo == 'moto':
-            base = 8000
-            extra = self.peso * 50
-            if self.es_electrico:
-                extra += 3000
-        elif self.tipo == 'camion':
-            base = 45000
-            extra = self.peso * 200
-        else:
-            base = 0
-            extra = 0
+        base = PRECIOS_BASE.get(self.tipo, 0)
+        extra = self.peso * MULTIPLICADORES_PESO.get(self.tipo, 0)
+        if self.es_electrico:
+            extra += EXTRA_ELECTRICO.get(self.tipo, 0)
         return base + extra
 
     def necesita_inspeccion(self):
