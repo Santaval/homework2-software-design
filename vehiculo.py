@@ -16,7 +16,7 @@ EXTRA_ELECTRICO = {
 
 class Vehiculo:
     def __init__(self, tipo, color, peso, ruedas=4, es_electrico=False, capacidad_pasajeros=5):
-        self.tipo = tipo  # 'auto', 'moto', 'camion'
+        self.tipo = tipo
         self.color = color
         self.peso = peso
         self.ruedas = ruedas
@@ -32,14 +32,35 @@ class Vehiculo:
         return base + extra
 
     def necesita_inspeccion(self):
-        if self.tipo == 'auto' and self.peso > 2000:
-            return True
-        elif self.tipo == 'moto' and self.peso > 300:
-            return True
-        elif self.tipo == 'camion':
-            return True
-        else:
-            return False
+        return False
+
+class Auto(Vehiculo):
+    def __init__(self, color, peso, ruedas=4, es_electrico=False, capacidad_pasajeros=5):
+        super().__init__('auto', color, peso, ruedas, es_electrico, capacidad_pasajeros)
+    def necesita_inspeccion(self):
+        return self.peso > 2000
+
+class Moto(Vehiculo):
+    def __init__(self, color, peso, ruedas=2, es_electrico=False, capacidad_pasajeros=2):
+        super().__init__('moto', color, peso, ruedas, es_electrico, capacidad_pasajeros)
+    def necesita_inspeccion(self):
+        return self.peso > 300
+
+class Camion(Vehiculo):
+    def __init__(self, color, peso, ruedas=4, es_electrico=False, capacidad_pasajeros=2):
+        super().__init__('camion', color, peso, ruedas, es_electrico, capacidad_pasajeros)
+    def necesita_inspeccion(self):
+        return True
+
+def crear_vehiculo(tipo, color, peso, ruedas, es_electrico, capacidad_pasajeros):
+    if tipo == 'auto':
+        return Auto(color, peso, ruedas, es_electrico, capacidad_pasajeros)
+    elif tipo == 'moto':
+        return Moto(color, peso, ruedas, es_electrico, capacidad_pasajeros)
+    elif tipo == 'camion':
+        return Camion(color, peso, ruedas, es_electrico, capacidad_pasajeros)
+    else:
+        return Vehiculo(tipo, color, peso, ruedas, es_electrico, capacidad_pasajeros)
 
 def imprimir_datos_vehiculo(vehiculo):
     print(f"Vehiculo tipo: {vehiculo.tipo}")

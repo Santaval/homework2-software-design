@@ -1,11 +1,11 @@
-from vehiculo import Vehiculo
+from vehiculo import crear_vehiculo
 
 class Flota:
     def __init__(self):
         self.vehiculos = []
 
     def agregar_vehiculo(self, tipo, color, peso, ruedas, electrico, capacidad):
-        v = Vehiculo(tipo, color, peso, ruedas, electrico, capacidad)
+        v = crear_vehiculo(tipo, color, peso, ruedas, electrico, capacidad)
         self.vehiculos.append(v)
         print("Vehículo agregado!")
 
