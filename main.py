@@ -37,16 +37,16 @@ class Vehiculo:
         else:
             return False
 
-    def imprimir_datos(self):
-        print(f"Vehiculo tipo: {self.tipo}")
-        print(f"Color: {self.color}")
-        print(f"Peso: {self.peso} kg")
-        print(f"Ruedas: {self.ruedas}")
-        print(f"Eléctrico: {'Sí' if self.es_electrico else 'No'}")
-        print(f"Capacidad: {self.capacidad_pasajeros} pasajeros")
-        print(f"Costo: ${self.calcular_costo()}")
-        print(f"Requiere inspección: {'Sí' if self.necesita_inspeccion() else 'No'}")
-        print("-------------------------")
+def imprimir_datos_vehiculo(vehiculo):
+    print(f"Vehiculo tipo: {vehiculo.tipo}")
+    print(f"Color: {vehiculo.color}")
+    print(f"Peso: {vehiculo.peso} kg")
+    print(f"Ruedas: {vehiculo.ruedas}")
+    print(f"Eléctrico: {'Sí' if vehiculo.es_electrico else 'No'}")
+    print(f"Capacidad: {vehiculo.capacidad_pasajeros} pasajeros")
+    print(f"Costo: ${vehiculo.calcular_costo()}")
+    print(f"Requiere inspección: {'Sí' if vehiculo.necesita_inspeccion() else 'No'}")
+    print("-------------------------")
 
 from vehiculo import Vehiculo
 
@@ -78,7 +78,7 @@ class Flota:
         requiere_inspeccion = 0
 
         for v in self.vehiculos:
-            v.imprimir_datos()
+            imprimir_datos_vehiculo(v)
             total += v.calcular_costo()
             if v.es_electrico:
                 electricos += 1
