@@ -1,5 +1,3 @@
-from vehiculo import Vehiculo, imprimir_datos_vehiculo
-
 class Vehiculo:
     def __init__(self, tipo, color, peso, ruedas=4, es_electrico=False, capacidad_pasajeros=5):
         self.tipo = tipo  # 'auto', 'moto', 'camion'
@@ -48,45 +46,4 @@ def imprimir_datos_vehiculo(vehiculo):
     print(f"Capacidad: {vehiculo.capacidad_pasajeros} pasajeros")
     print(f"Costo: ${vehiculo.calcular_costo()}")
     print(f"Requiere inspección: {'Sí' if vehiculo.necesita_inspeccion() else 'No'}")
-    print("-------------------------")
-
-class Flota:
-    def __init__(self):
-        self.vehiculos = []
-
-    def agregar_vehiculo(self):
-        tipo = input("Tipo (auto/moto/camión): ").lower()
-        color = input("Color: ")
-        peso = float(input("Peso (kg): "))
-
-        if tipo == 'moto':
-            ruedas = 2
-            capacidad = 2
-        else:
-            ruedas = 4
-            capacidad = 5 if tipo == 'auto' else 2
-
-        electrico = input("Es eléctrico? (s/n): ").lower() == 's'
-
-        v = Vehiculo(tipo, color, peso, ruedas, electrico, capacidad)
-        self.vehiculos.append(v)
-        print("Vehículo agregado!")
-
-    def generar_reporte(self):
-        total = 0
-        electricos = 0
-        requiere_inspeccion = 0
-
-        for v in self.vehiculos:
-            imprimir_datos_vehiculo(v)
-            total += v.calcular_costo()
-            if v.es_electrico:
-                electricos += 1
-            if v.necesita_inspeccion():
-                requiere_inspeccion += 1
-
-        print(f"\nRESUMEN FLOTA:")
-        print(f"Total vehículos: {len(self.vehiculos)}")
-        print(f"Vehículos eléctricos: {electricos}")
-        print(f"Requieren inspección: {requiere_inspeccion}")
-        print(f"Valor total: ${total}")
+    print("-------------------------") 
